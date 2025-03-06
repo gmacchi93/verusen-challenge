@@ -1,4 +1,7 @@
-import { PaginationInput } from "@/modules/common/types/pagination.types";
+import {
+  PageResult,
+  PaginationInput,
+} from "@/modules/common/types/pagination.types";
 
 export type Material = {
   id: number;
@@ -19,7 +22,12 @@ export type Material = {
 };
 
 export type QueryMaterialsInput = {
-  manufacturerName: string;
-  name: string;
-  pagination: PaginationInput;
+  manufacturerName?: string;
+  name?: string;
+  pagination?: PaginationInput;
+};
+
+export type SearchMaterialsResponse = {
+  pagination: PageResult;
+  result: Material[];
 };
