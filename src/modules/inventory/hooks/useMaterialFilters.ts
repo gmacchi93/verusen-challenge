@@ -5,8 +5,6 @@ import { MaterialFiltersState } from "../types/material.types";
 const useMaterialFilters = (initialState: MaterialFiltersState) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  console.log("state", state);
-
   const formattedFilters = useMemo(
     () => ({
       pagination: state.pagination,

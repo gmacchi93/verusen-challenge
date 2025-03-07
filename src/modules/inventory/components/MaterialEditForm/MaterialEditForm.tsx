@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Manufacturer,
   Material,
@@ -13,12 +13,14 @@ import { UPDATE_MATERIAL_MUTATION } from "../../graphql/inventory.mutations";
 import { useMutation } from "@apollo/client";
 import { MATERIAL_FRAGMENT } from "../../graphql/inventory.fragments";
 import { useRouter } from "next/router";
+import useSnackbar from "@/modules/common/hooks/useSnackbar";
 
 type Props = {
   material: Material;
 };
 
 const MaterialEditForm = ({ material }: Props) => {
+  const { showSnackbar } = useSnackbar();
   const router = useRouter();
   const [updateMaterialMutation] = useMutation<
     { updateMaterial: Material },
@@ -72,7 +74,7 @@ const MaterialEditForm = ({ material }: Props) => {
         });
         router.push(`/inventory/${material.id}`);
       } catch {
-        console.error("Something went wrong");
+        showSnackbar("Something went wrong", 3000, "error");
       }
     },
   });

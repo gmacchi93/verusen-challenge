@@ -7,6 +7,7 @@ import { Roboto } from "next/font/google";
 import { ApolloProvider } from "@apollo/client";
 import apolloClient from "@/lib/apolloClient";
 import Layout from "@/modules/common/components/Layout";
+import SnackbarProvider from "@/modules/common/components/SnackbarProvider/SnackbarProvider";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -23,9 +24,11 @@ export default function App(props: AppProps) {
       <AppCacheProvider {...props}>
         <ThemeProvider theme={theme}>
           <div id="root" className={roboto.variable}>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
+            <SnackbarProvider>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </SnackbarProvider>
           </div>
         </ThemeProvider>
       </AppCacheProvider>

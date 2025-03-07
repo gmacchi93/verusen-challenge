@@ -6,9 +6,11 @@ import { GET_MATERIAL_BY_ID } from "../graphql/inventory.queries";
 import { useEffect } from "react";
 import { Button, CircularProgress, Typography } from "@mui/material";
 import MaterialDetailContext from "../contexts/MaterialContext";
+import useSnackbar from "@/modules/common/hooks/useSnackbar";
 
 const withMaterialDetail = (Page: NextPage) => {
   const PageWithMaterialDetail = ({ ...props }) => {
+    const { showSnackbar } = useSnackbar();
     const router = useRouter();
 
     const { id } = router.query;
@@ -21,8 +23,10 @@ const withMaterialDetail = (Page: NextPage) => {
     const { getMaterialById: material } = { ...data };
 
     useEffect(() => {
-      console.error(error);
-    }, [error]);
+      if (error) {
+        showSnackbar(error.message, 3000, "error");
+      }
+    }, [error, showSnackbar]);
 
     if (loading) {
       return <CircularProgress />;
@@ -45,7 +49,7 @@ const withMaterialDetail = (Page: NextPage) => {
           material,
         }}
       >
-        <Page />
+        <Page {...props} />
       </MaterialDetailContext.Provider>
     );
   };

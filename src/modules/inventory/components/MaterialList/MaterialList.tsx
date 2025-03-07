@@ -15,9 +15,12 @@ import {
 } from "@mui/x-data-grid";
 import useMaterialFilters from "../../hooks/useMaterialFilters";
 import { useRouter } from "next/router";
+import useSnackbar from "@/modules/common/hooks/useSnackbar";
 
 const MaterialList = () => {
   const router = useRouter();
+  const { showSnackbar } = useSnackbar();
+
   const {
     filters,
     state: filterState,
@@ -82,9 +85,9 @@ const MaterialList = () => {
 
   useEffect(() => {
     if (error) {
-      console.error(error);
+      showSnackbar(error.message, 3000, "error");
     }
-  }, [error]);
+  }, [error, showSnackbar]);
 
   return (
     <MaterialGrid
