@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { AppCacheProvider } from "@mui/material-nextjs/v15-pagesRouter";
-import { ThemeProvider } from "@mui/material";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 import theme from "@/modules/common/config/theme";
 import { Roboto } from "next/font/google";
 import { ApolloProvider } from "@apollo/client";
@@ -23,6 +23,7 @@ export default function App(props: AppProps) {
     <ApolloProvider client={apolloClient}>
       <AppCacheProvider {...props}>
         <ThemeProvider theme={theme}>
+          <CssBaseline />
           <div id="root" className={roboto.variable}>
             <SnackbarProvider>
               <Layout>
