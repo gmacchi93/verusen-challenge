@@ -8,6 +8,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import HomeIcon from "@mui/icons-material/Home";
 import CustomDrawer from "./MenuDrawer.styled";
+import Link from "next/link";
 
 const DRAWER_WIDTH = 280;
 
@@ -33,7 +34,7 @@ const MenuDrawer = ({ isMenuOpen }: Props) => {
       <Box sx={{ overflow: "auto" }}>
         <List>
           <ListItem disablePadding>
-            <ListItemButton href="/">
+            <ListItemButton LinkComponent={Link} href="/">
               <ListItemIcon>
                 <HomeIcon />
               </ListItemIcon>

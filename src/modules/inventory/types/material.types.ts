@@ -11,7 +11,6 @@ import {
 export type Manufacturer = {
   id: string;
   manufacturerName: string;
-  manufacturerPartId: string;
 };
 
 export type Material = {
@@ -31,11 +30,19 @@ export type Material = {
   requestedQuantity?: number;
   requestedUnitPrice?: number;
 };
-
 export type QueryMaterialsInput = {
   manufacturerName?: string;
   name?: string;
   pagination?: PaginationInput;
+};
+
+export type UpdateMaterialInput = {
+  id: number;
+  name?: string;
+  manufacturerName?: string;
+  manufacturerPartId?: string;
+  category?: string;
+  requestedUnitPrice?: number;
 };
 
 export type SearchMaterialsResponse = {

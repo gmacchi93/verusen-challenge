@@ -35,6 +35,15 @@ const typeDefs = gql`
     pagination: PaginationInput
   }
 
+  input UpdateMaterialInput {
+    id: ID!
+    name: String
+    manufacturerName: String
+    manufacturerPartId: String
+    category: String
+    requestedUnitPrice: Float
+  }
+
   type PageResult {
     page: Int
     pageSize: Int
@@ -48,7 +57,12 @@ const typeDefs = gql`
 
   type Query {
     searchMaterials(input: QueryMaterialsInput): SearchMaterialResult
+    getMaterialById(id: String): Material
     searchManufacturers(name: String): [Manufacturer]
+  }
+
+  type Mutation {
+    updateMaterial(input: UpdateMaterialInput): Material
   }
 `;
 

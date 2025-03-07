@@ -14,8 +14,10 @@ import {
   GridSortModel,
 } from "@mui/x-data-grid";
 import useMaterialFilters from "../../hooks/useMaterialFilters";
+import { useRouter } from "next/router";
 
 const MaterialList = () => {
+  const router = useRouter();
   const {
     filters,
     state: filterState,
@@ -86,6 +88,9 @@ const MaterialList = () => {
 
   return (
     <MaterialGrid
+      onRowClick={(params, _event, _details) => {
+        router.push(`inventory/${params.id}`);
+      }}
       rows={result}
       loading={loading}
       paginationModel={filterState.pagination}

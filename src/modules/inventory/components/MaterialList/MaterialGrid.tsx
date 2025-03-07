@@ -12,7 +12,7 @@ import {
 } from "@mui/x-data-grid";
 import { currencyFormatter } from "@/modules/common/utils/currency.utils";
 import Box from "@mui/material/Box";
-import ManufacturerAutocomplete from "../ManufacturerAutocomplete";
+import ManufacturerAutocompleteOperator from "../ManufacturerAutocomplete/ManufacturerAutocompleteOperator";
 
 const CustomToolbar = () => {
   return (
@@ -46,7 +46,6 @@ const columns: GridColDef[] = [
   {
     field: "category",
     headerName: "Category",
-    flex: 1,
     disableColumnMenu: true,
     sortable: false,
     filterable: false,
@@ -59,12 +58,14 @@ const columns: GridColDef[] = [
     sortable: false,
     filterOperators: getGridStringOperators()
       .filter((op) => op.value === "equals")
-      .map((op) => ({ ...op, InputComponent: ManufacturerAutocomplete })),
+      .map((op) => ({
+        ...op,
+        InputComponent: ManufacturerAutocompleteOperator,
+      })),
   },
   {
     field: "requestedUnitPrice",
     headerName: "Price",
-    flex: 1,
     disableColumnMenu: true,
     filterable: false,
     valueFormatter: currencyFormatter,
@@ -74,6 +75,7 @@ const columns: GridColDef[] = [
 const MaterialGrid = (props: Partial<DataGridProps>) => {
   return (
     <DataGrid
+      disableRowSelectionOnClick
       sx={{ border: 0 }}
       rowSelection={false}
       showCellVerticalBorder={false}

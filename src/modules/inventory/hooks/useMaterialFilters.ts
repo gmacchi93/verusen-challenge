@@ -11,7 +11,7 @@ const useMaterialFilters = (initialState: MaterialFiltersState) => {
       name: state.filter?.quickFilterValues?.join(" "),
       manufacturerName: state.filter?.items.find(
         (i) => i.field === "manufacturerName"
-      )?.value,
+      )?.value?.name,
     }),
     [state]
   );

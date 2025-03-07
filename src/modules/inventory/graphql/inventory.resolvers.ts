@@ -1,5 +1,8 @@
 import materials from "@/data/materials.json";
-import { QueryMaterialsInput } from "../types/material.types";
+import {
+  QueryMaterialsInput,
+  UpdateMaterialInput,
+} from "../types/material.types";
 import humps from "humps";
 import { uniqBy } from "ramda";
 
@@ -96,6 +99,24 @@ const resolvers = {
           totalCount,
         },
       };
+    },
+    getMaterialById: (
+      _parent: unknown,
+      { id }: { id: string },
+      _context: unknown
+    ) => {
+      const filteredMaterials = materials as MaterialRawData[];
+      const material = filteredMaterials.find((m) => m.id.toString() === id);
+      return humps.camelizeKeys(material);
+    },
+  },
+  Mutation: {
+    updateMaterial: (
+      _parent: unknown,
+      { input }: { input: UpdateMaterialInput },
+      _context: unknown
+    ) => {
+      return input;
     },
   },
 };

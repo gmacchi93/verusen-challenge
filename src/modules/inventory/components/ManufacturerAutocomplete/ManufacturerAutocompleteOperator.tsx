@@ -1,4 +1,5 @@
 import React, { SyntheticEvent, useEffect, useState } from "react";
+import { GridFilterInputValueProps } from "@mui/x-data-grid";
 import FormControl from "@mui/material/FormControl";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
@@ -6,13 +7,9 @@ import { SEARCH_MANUFACTURER_RESULT_QUERY } from "../../graphql/inventory.querie
 import { useLazyQuery } from "@apollo/client";
 import { Manufacturer } from "../../types/material.types";
 
-type Props = {
-  initial?: Manufacturer;
-  onChange: (value: Manufacturer | null) => void;
-};
-
-const ManufacturerAutocomplete = ({ initial, onChange }: Props) => {
-  const [inputValue, setInputValue] = useState("");
+const ManufacturerAutocompleteOperator = (props: GridFilterInputValueProps) => {
+  const { item, applyValue } = props;
+  const [inputValue, setInputValue] = useState(item.value ?? "");
 
   const [fetchManufacturers, { data, loading }] = useLazyQuery<
     { searchManufacturers: Manufacturer[] },
@@ -21,9 +18,9 @@ const ManufacturerAutocomplete = ({ initial, onChange }: Props) => {
 
   const handleChange = (
     _event: SyntheticEvent<Element, Event>,
-    newValue: Manufacturer | null
+    newValue: { id: string; name: string } | null
   ) => {
-    onChange(newValue);
+    applyValue({ ...item, value: newValue });
   };
 
   useEffect(() => {
@@ -41,11 +38,16 @@ const ManufacturerAutocomplete = ({ initial, onChange }: Props) => {
   return (
     <FormControl size="small" sx={{ width: "100%" }}>
       <Autocomplete
-        defaultValue={initial}
         loading={loading}
-        options={data?.searchManufacturers ?? []}
-        getOptionLabel={(option: Manufacturer) => option.manufacturerName}
+        options={
+          data?.searchManufacturers.map((m) => ({
+            id: m.id,
+            name: m.manufacturerName,
+          })) ?? []
+        }
+        getOptionLabel={(option: { name: string }) => option.name}
         id="disable-close-on-select"
+        disableCloseOnSelect
         onChange={handleChange}
         renderInput={(params) => (
           <TextField
@@ -61,4 +63,4 @@ const ManufacturerAutocomplete = ({ initial, onChange }: Props) => {
   );
 };
 
-export default ManufacturerAutocomplete;
+export default ManufacturerAutocompleteOperator;
