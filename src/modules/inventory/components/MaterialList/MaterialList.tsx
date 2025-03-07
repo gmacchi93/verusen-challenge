@@ -1,4 +1,3 @@
-"use client";
 import React, { useEffect, useMemo, useRef } from "react";
 import MaterialGrid from "./MaterialGrid";
 import { useLazyQuery } from "@apollo/client";
