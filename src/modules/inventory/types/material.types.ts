@@ -2,6 +2,17 @@ import {
   PageResult,
   PaginationInput,
 } from "@/modules/common/types/pagination.types";
+import {
+  GridFilterModel,
+  GridPaginationModel,
+  GridSortModel,
+} from "@mui/x-data-grid";
+
+export type Manufacturer = {
+  id: string;
+  manufacturerName: string;
+  manufacturerPartId: string;
+};
 
 export type Material = {
   id: number;
@@ -31,3 +42,29 @@ export type SearchMaterialsResponse = {
   pagination: PageResult;
   result: Material[];
 };
+
+export type MaterialFiltersState = {
+  pagination: GridPaginationModel;
+  sort?: GridSortModel;
+  filter?: GridFilterModel;
+};
+
+export enum MaterialFilterActionTypes {
+  SetPaginationModel,
+  SetFilterModel,
+  SetSortModel,
+}
+
+export type MaterialFilterActions =
+  | {
+      type: MaterialFilterActionTypes.SetPaginationModel;
+      payload: GridPaginationModel;
+    }
+  | {
+      type: MaterialFilterActionTypes.SetFilterModel;
+      payload: GridFilterModel;
+    }
+  | {
+      type: MaterialFilterActionTypes.SetSortModel;
+      payload: GridSortModel;
+    };

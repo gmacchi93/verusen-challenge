@@ -1,4 +1,3 @@
-"use client";
 import React, { PropsWithChildren, useState } from "react";
 import MenuAppBar from "@/modules/common/components/MenuAppBar";
 import MenuDrawer from "@/modules/common/components/MenuDrawer";

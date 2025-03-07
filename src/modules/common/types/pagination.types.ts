@@ -1,10 +1,10 @@
 export type PaginationInput = {
-  pageNumber: number;
+  page: number;
   pageSize: number;
 };
 
 export type PageResult = {
-  pageNumber: number;
+  page: number;
   pageSize: number;
   totalCount: number;
 };

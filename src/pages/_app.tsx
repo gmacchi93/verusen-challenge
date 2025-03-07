@@ -14,16 +14,18 @@ const roboto = Roboto({
   variable: "--font-roboto",
 });
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App(props: AppProps) {
+  const { Component, pageProps } = props;
+
   return (
-    <AppCacheProvider>
-      <ThemeProvider theme={theme}>
-        <ApolloProvider client={apolloClient}>
-          <div id="root" className={roboto.className}>
+    <ApolloProvider client={apolloClient}>
+      <AppCacheProvider {...props}>
+        <ThemeProvider theme={theme}>
+          <div id="root" className={roboto.variable}>
             <Component {...pageProps} />
           </div>
-        </ApolloProvider>
-      </ThemeProvider>
-    </AppCacheProvider>
+        </ThemeProvider>
+      </AppCacheProvider>
+    </ApolloProvider>
   );
 }

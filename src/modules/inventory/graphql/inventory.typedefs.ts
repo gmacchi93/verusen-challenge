@@ -1,6 +1,11 @@
 import { gql } from "graphql-tag";
 
 const typeDefs = gql`
+  type Manufacturer {
+    manufacturerName: String
+    manufacturerPartId: String
+  }
+
   type Material {
     id: ID!
     name: String
@@ -20,7 +25,7 @@ const typeDefs = gql`
   }
 
   input PaginationInput {
-    pageNumber: Int
+    page: Int
     pageSize: Int
   }
 
@@ -31,7 +36,7 @@ const typeDefs = gql`
   }
 
   type PageResult {
-    pageNumber: Int
+    page: Int
     pageSize: Int
     totalCount: Int
   }
@@ -43,6 +48,7 @@ const typeDefs = gql`
 
   type Query {
     searchMaterials(input: QueryMaterialsInput): SearchMaterialResult
+    searchManufacturers(name: String): [Manufacturer]
   }
 `;
 
