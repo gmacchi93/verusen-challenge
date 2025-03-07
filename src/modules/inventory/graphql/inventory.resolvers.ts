@@ -21,7 +21,7 @@ type MaterialRawData = {
   unit_of_measure?: string | null;
   unit_quantity?: number | null;
   requested_quantity?: number | null;
-  requested_unit_price?: number | null;
+  requested_unit_price: number;
 };
 
 const resolvers = {
@@ -62,7 +62,12 @@ const resolvers = {
           page: 0,
           pageSize: 10,
         },
+        sort = [],
       } = input;
+
+      const enabledSort = sort.filter(
+        (option) => option.field === "requestedUnitPrice"
+      );
 
       let filteredMaterials = materials as MaterialRawData[];
 
@@ -79,20 +84,38 @@ const resolvers = {
         );
       }
 
-      const camelizedMaterials = filteredMaterials.map((material) =>
-        humps.camelizeKeys(material)
-      );
+      if (!!enabledSort.length) {
+        for (const sortOption of sort) {
+          switch (sortOption.field) {
+            case "requestedUnitPrice":
+              filteredMaterials = filteredMaterials.sort((a, b) => {
+                if (sortOption.sort === "asc") {
+                  return a.requested_unit_price - b.requested_unit_price;
+                } else {
+                  return b.requested_unit_price - a.requested_unit_price;
+                }
+              });
+              break;
+            default:
+              console.warn("Sort option not defined: ", sortOption.field);
+          }
+        }
+      }
 
       const { page, pageSize } = pagination;
-      const totalCount = camelizedMaterials.length;
+      const totalCount = filteredMaterials.length;
       const startIndex = page * pageSize;
-      const paginatedMaterials = camelizedMaterials.slice(
+      const paginatedMaterials = filteredMaterials.slice(
         startIndex,
         startIndex + pageSize
       );
 
+      const camelizedMaterials = paginatedMaterials.map((material) =>
+        humps.camelizeKeys(material)
+      );
+
       return {
-        result: paginatedMaterials,
+        result: camelizedMaterials,
         pagination: {
           page,
           pageSize,

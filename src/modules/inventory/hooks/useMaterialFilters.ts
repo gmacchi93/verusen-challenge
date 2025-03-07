@@ -5,6 +5,8 @@ import { MaterialFiltersState } from "../types/material.types";
 const useMaterialFilters = (initialState: MaterialFiltersState) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  console.log("state", state);
+
   const formattedFilters = useMemo(
     () => ({
       pagination: state.pagination,
@@ -12,6 +14,7 @@ const useMaterialFilters = (initialState: MaterialFiltersState) => {
       manufacturerName: state.filter?.items.find(
         (i) => i.field === "manufacturerName"
       )?.value?.name,
+      sort: state.sort,
     }),
     [state]
   );

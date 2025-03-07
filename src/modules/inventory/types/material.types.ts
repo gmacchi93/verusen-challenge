@@ -34,6 +34,7 @@ export type QueryMaterialsInput = {
   manufacturerName?: string;
   name?: string;
   pagination?: PaginationInput;
+  sort?: GridSortModel;
 };
 
 export type UpdateMaterialInput = {

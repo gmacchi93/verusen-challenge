@@ -29,10 +29,16 @@ const typeDefs = gql`
     pageSize: Int
   }
 
+  input SortInput {
+    field: String
+    sort: String
+  }
+
   input QueryMaterialsInput {
     manufacturerName: String
     name: String
     pagination: PaginationInput
+    sort: [SortInput]
   }
 
   input UpdateMaterialInput {
