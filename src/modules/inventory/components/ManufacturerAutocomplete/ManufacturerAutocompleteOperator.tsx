@@ -46,12 +46,13 @@ const ManufacturerAutocompleteOperator = (props: GridFilterInputValueProps) => {
           })) ?? []
         }
         getOptionLabel={(option: { name: string }) => option.name}
-        id="disable-close-on-select"
+        id="manufacturer-autocomplete"
         disableCloseOnSelect
         onChange={handleChange}
         renderInput={(params) => (
           <TextField
             {...params}
+            id="manufacturer-search-input"
             label="Manufacturer"
             variant="standard"
             value={inputValue}
